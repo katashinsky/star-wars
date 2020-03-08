@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import CustomImage from "../custom-image";
 import starWarsLogo from "../../assets/star_wars_logo.svg";
-import {getCharactersStart, sortFilms, getCharacterByIdStart, getFilmsStart} from "../../redux/film/film.actions";
+import {getCharactersStart, sortFilms, getCharacterByIdStart, getFilmsStart, closeModal} from "../../redux/film/film.actions";
 import {connect} from "react-redux";
 import ScrollMenu from "react-horizontal-scrolling-menu";
 import {
@@ -20,13 +20,13 @@ export const ActorItems = (actorList) => {
     })
 }
 
-const Header = ({getFilmsStart, headerSortArray, sortFilms, getCharactersStart, characters, getCharacterByIdStart}) => {
+const Header = ({getFilmsStart, headerSortArray, sortFilms, getCharactersStart, characters, getCharacterByIdStart, closeModal}) => {
     let sortFilmsList = (sortType) => {
         sortFilms(sortType)
     }
 
     let getMoviesByCharacter = (id) => {
-        console.log("let getMoviesByCharacter = (id) =>", id)
+        closeModal()
         getCharacterByIdStart(id)
     }
 
@@ -64,7 +64,8 @@ const mapDispatchToProps = dispatch => ({
     getFilmsStart: () => dispatch(getFilmsStart()),
     sortFilms: (sortType) => dispatch(sortFilms(sortType)),
     getCharactersStart: () => dispatch(getCharactersStart()),
-    getCharacterByIdStart: (id) => dispatch(getCharacterByIdStart(id))
+    getCharacterByIdStart: (id) => dispatch(getCharacterByIdStart(id)),
+    closeModal: () => dispatch(closeModal()),
 })
 
 const mapStateToProps = state => ({
