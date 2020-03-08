@@ -1,0 +1,35 @@
+.humanLogo {
+    width: 58px;
+    height: 65px;
+    margin-left: 8px;
+    border-radius: 50%;
+
+    background-size: cover;
+}
+
+.lineLogo {
+    z-index: -1;
+}
+
+#starWarsLogo {
+    width: 120px;
+    height: 60px;
+    background-size: contain;
+}
+
+#closeIcon{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+
+#pauseSign{
+    z-index: 3;
+}
+
+.cast-actor{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background-size: cover;
+}
