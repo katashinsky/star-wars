@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 
 export const HeaderStyles = styled.div`    
-    width: 1vm;
+    width: 100%;
     height: 20%;
-
+    position: fixed;
+    z-index: 5;
     background: linear-gradient(180deg, rgba(31, 100, 39, 0.564878) 6.23%, rgba(0, 0, 0, 0.0001) 100%);
 `;
 
 export const HeaderMain = styled.div`    
-    width: 1vm;
+    width: 1500px;
     height: 50%;
 
     display: flex;
@@ -57,4 +58,7 @@ export const PeopleListWrapper = styled.div`
 export const PeopleList = styled.div`    
     max-width: 80%;
     height: 65px;
+    
+    display: flex;
+    flex-direction: row;
 `;

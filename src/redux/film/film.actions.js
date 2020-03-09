@@ -63,3 +63,8 @@ export const getCharacterByIdSuccess = (character) => ({
 export const getCharacterByIdFail = () => ({
     type: FilmActionTypes.GET_CHARACTER_BY_ID_FAIL
 });
+
+export const setCharacter = (id) => ({
+    type: FilmActionTypes.SET_CHARACTER,
+    payload: {id: id}
+});

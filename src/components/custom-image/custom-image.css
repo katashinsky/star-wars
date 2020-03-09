@@ -1,14 +1,14 @@
 .humanLogo {
-    width: 58px;
-    height: 65px;
-    margin-left: 8px;
+    min-width: 50px;
+    min-height: 50px;
+    margin-left: 12px;
     border-radius: 50%;
 
     background-size: cover;
 }
 
 .lineLogo {
-    z-index: -1;
+    z-index: -2;
 }
 
 #starWarsLogo {
@@ -32,4 +32,11 @@
     height: 180px;
     border-radius: 50%;
     background-size: cover;
+}
+
+.increase{
+    transition: transform 3s ease-out;
+    min-width: 60px;
+    height: 60px;
+    /*transform: scale(1.3);*/
 }

@@ -1,41 +1,63 @@
-import React, {useEffect, useState} from 'react'
-import ScrollMenu from "react-horizontal-scrolling-menu";
+import React, {useEffect, useRef, useState} from 'react'
 import FilmItem from "../film-item";
 import {connect} from 'react-redux'
-import {getFilmsStart, setSelectedFilm, openModal} from "../../redux/film/film.actions";
-import {RELEASE_DATE} from "../../config/mainConst";
-import {Container} from "./film-list.styles"
+import {getFilmsStart, setSelectedFilm} from "../../redux/film/film.actions";
+import {CONTAINER_SIZE, RELEASE_DATE} from "../../config/mainConst";
+import ScrollContainer from 'react-indiana-drag-scroll'
+import './film-list.css'
 
-export const FilmItems = (list) => {
-    return list.map(film => {
+
+export const FilmItems = (list, runAnimation) => {
+    return list.map((film, index) => {
         let image = film.media.find(elem => elem.type === "image")
-        return <FilmItem filmData={film} key={film.id} image={image.src}/>;
+        return <FilmItem filmData={film} key={film.id} id={film.id} image={image.src} index={index + 3} runCustomAnimation={runAnimation}/>;
     });
 }
 
 const FilmList = ({getFilmsStart, movies, setSelectedFilm, sortedMovies, sortType}) => {
+    const container = useRef(null);
     let [filmList, setFilmList] = useState(FilmItems([]))
     useEffect(() => {
-        setFilmList(FilmItems(sortType === RELEASE_DATE ? movies : sortedMovies))
+        setFilmList(FilmItems(sortType === RELEASE_DATE ? movies : sortedMovies, runCustomAnimation))
     }, [movies])
 
     useEffect(() => {
         getFilmsStart()
     }, [])
 
-    let onSelect = key => {
-        setSelectedFilm(key)
+    useEffect(() => {
+        container.current.getElement().scrollTo(CONTAINER_SIZE * 2, 0)
+    })
+
+    let runCustomAnimation = (number) => {
+        let startPosition = container.current.getElement().scrollLeft
+        let startValue = startPosition
+        let finishValue = (2 * CONTAINER_SIZE + CONTAINER_SIZE * number) - (CONTAINER_SIZE * 5);
+
+        let interval = setInterval(() => {
+            container.current.getElement().scrollTo(startValue, 0)
+            if(finishValue < startValue) startValue -= 5
+            if(finishValue > startValue) startValue += 5
+
+            if (startValue >= finishValue - 5 && startValue <= finishValue + 5) {
+                console.log("clearInterval")
+                startValue = 0
+                clearInterval(interval)
+            }
+        }, 10)
     }
 
     return (
-        <Container>
-            <ScrollMenu
-                data={filmList}
-                onSelect={onSelect}
-                wheel={false}
-                translate={0}
-            />
-        </Container>
+        <ScrollContainer horizontal={true} className="container"
+                         style={{width: "100%", height: "100%"}}
+                         ref={container}
+        >
+            <FilmItem hidden={true}/>
+            <FilmItem hidden={true}/>
+            {filmList}
+            <FilmItem hidden={true}/>
+            <FilmItem hidden={true}/>
+        </ScrollContainer>
     )
 }
 

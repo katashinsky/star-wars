@@ -91,6 +91,16 @@ const cartReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 movies: []
             };
+
+        case FilmActionTypes.SET_CHARACTER:
+            return {
+                ...state,
+                characters: state.characters.map(character => {
+                    character.selected = false
+                    if(character.id === payload.id) character.selected = true
+                    return character
+                })
+            };
         default:
             return state;
     }

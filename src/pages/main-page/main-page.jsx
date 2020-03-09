@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 
 const MainPage = ({isModalOpen}) => {
     return (
-        <div className="app">
+        <div className={`app ${isModalOpen? "isModalOpen" : ""}`}>
             <Header/>
             <FilmList/>
             {isModalOpen ? <CustomModal/> : null}

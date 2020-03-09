@@ -24,7 +24,7 @@ export function* getFilmsStart() {
 export function* getCharactersStart() {
     try {
         let data = yield filmClient.request(getCharactersQuery)
-        yield put(getCharactersSuccess(data.characters.items));
+        yield put(getCharactersSuccess(data.characters.items.map(item => {item.selected = false; return item})));
     } catch (error) {
         yield put(getCharactersFail())
     }

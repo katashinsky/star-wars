@@ -19,6 +19,11 @@ html, .page-body {
     display: flex;
 }
 
+.isModalOpen {
+    transition: 3s ease-out;
+    background-image:none;
+}
+
 
 
 
